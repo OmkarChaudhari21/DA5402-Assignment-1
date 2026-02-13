@@ -6,12 +6,31 @@ import pickle
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 
+import json
+import subprocess
+from datetime import datetime
+from sklearn.metrics import accuracy_score
+
+
 
 def load_config(config_path="config.yaml"):
     if not os.path.exists(config_path):
         raise FileNotFoundError("config.yaml not found. Training cannot proceed.")
     with open(config_path, "r") as f:
         return yaml.safe_load(f)
+
+def get_git_commit_hash():
+    try:
+        result = subprocess.run(
+            ["git", "rev-parse", "HEAD"],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            check=True,
+        )
+        return result.stdout.strip()
+    except Exception:
+        return "Git hash unavailable"
 
 
 def main():
@@ -64,6 +83,9 @@ def main():
     # Train model
     model.fit(X, y)
 
+    predictions = model.predict(X)
+    accuracy = accuracy_score(y, predictions)
+
     # Save model dynamically
     model_filename = f"model_{current_version}.pkl"
     model_path = os.path.join(deployment_config["model_save_dir"], model_filename)
@@ -80,6 +102,26 @@ def main():
 
     print("Training completed successfully.")
     print(f"Model saved to: {model_path}")
+
+    metadata = {
+        "training_date": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "dataset_version": current_version,
+        "git_commit_hash": get_git_commit_hash(),
+        "training_accuracy": accuracy
+    }
+
+    metadata_filename = f"metadata_{current_version}.json"
+    metadata_path = os.path.join(
+        deployment_config["model_save_dir"],
+        metadata_filename
+    )
+
+    with open(metadata_path, "w") as f:
+        json.dump(metadata, f, indent=4)
+
+    print(f"Metadata saved to: {metadata_path}")
+    print(f"Training Accuracy: {accuracy}")
+
 
 
 if __name__ == "__main__":
