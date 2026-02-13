@@ -1,0 +1,6 @@
+Timestamp: 2026-02-14 HH:MM:SS
+Script: Manual download
+Input: UCI AI4I 2020 dataset
+Output:
+  - data/raw/ai4i2020.csv
+Description: Initial raw dataset download. Immutable source file.
