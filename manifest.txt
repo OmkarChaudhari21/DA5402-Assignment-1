@@ -3,4 +3,16 @@ Script: Manual download
 Input: UCI AI4I 2020 dataset
 Output:
   - data/raw/ai4i2020.csv
-Description: Initial raw dataset download. Immutable source file.
+Description: Initial raw dataset download. Immutable source file.Timestamp: 2026-02-13 16:08:24
+Script: data_prep.py
+Input: data/raw/ai4i2020.csv
+Output:
+  - data/processed/v1_train.csv
+  - data/production/v1_prod.csv
+Description: Chronological split (7000 train / 3000 production)Timestamp: 2026-02-13 16:13:55
+Script: data_prep.py
+Input: data/raw/ai4i2020.csv
+Output:
+  - data/processed/v2_train.csv
+  - data/production/v2_prod.csv
+Description: Chronological split (7000 train / 3000 production)
