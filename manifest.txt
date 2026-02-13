@@ -15,4 +15,16 @@ Input: data/raw/ai4i2020.csv
 Output:
   - data/processed/v2_train.csv
   - data/production/v2_prod.csv
-Description: Chronological split (7000 train / 3000 production)
+Description: Chronological split (7000 train / 3000 production)Timestamp: 2026-02-13 23:42:16
+Script: simulate_drift.py
+Input: data/production/v2_prod.csv
+Output:
+  - data/production/v3_prod.csv
+Description: Simulated sensor drift: Torque +5%, Air temperature +2KTimestamp: 2026-02-13 23:52:59
+Script: retrain_prepare.py
+Input:
+  - data/processed/v2_train.csv
+  - data/production/v3_prod.csv
+Output:
+  - data/processed/v3_train.csv
+Description: Combined v2_train and v3_prod for retraining

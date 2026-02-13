@@ -1,3 +1,6 @@
 pandas
 pyyaml
 scikit-learn
+fastapi
+uvicorn
+requests

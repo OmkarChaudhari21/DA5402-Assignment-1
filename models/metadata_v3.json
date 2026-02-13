@@ -1,8 +1,8 @@
 {
-    "training_date": "2026-02-13 23:33:13",
-    "dataset_version": "v2",
+    "training_date": "2026-02-13 23:53:10",
+    "dataset_version": "v3",
     "git_commit_hash": "a469c9556082a2ac95f29a619baed217e8034b2c",
-    "training_accuracy": 0.9052857142857142,
+    "training_accuracy": 0.9025,
     "feature_columns": [
         "Air temperature [K]",
         "Process temperature [K]",

@@ -68,6 +68,7 @@ def main():
         df = pd.get_dummies(df, columns=["Type"], drop_first=True)
 
     X = df.iloc[:, :-1]
+    feature_columns = list(X.columns)
     y = df.iloc[:, -1]
 
     # Initialize model using config hyperparameters
@@ -107,7 +108,8 @@ def main():
         "training_date": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         "dataset_version": current_version,
         "git_commit_hash": get_git_commit_hash(),
-        "training_accuracy": accuracy
+        "training_accuracy": accuracy,
+        "feature_columns": feature_columns
     }
 
     metadata_filename = f"metadata_{current_version}.json"
