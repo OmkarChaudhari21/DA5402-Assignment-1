@@ -1,0 +1,21 @@
+project:
+  name: "Predictive_Maintenance_Manual"
+  author: "Omkar"
+
+data:
+  raw_path: "data/raw/ai4i2020.csv"
+  processed_dir: "data/processed/"
+  production_dir: "data/production/"
+  current_version: "v1"
+  train_size: 7000
+
+model:
+  algorithm: "RandomForest"
+  n_estimators: 100
+  max_depth: 10
+  random_state: 42
+
+deployment:
+  model_save_dir: "models/"
+  port: 5000
+  threshold: 0.75
